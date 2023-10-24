@@ -29,3 +29,9 @@ export default defineComponent({
   name: 'ErrorNotFound'
 });
 </script>
+
+<style scoped>
+
+/* Single Page Style*/
+
+</style>
