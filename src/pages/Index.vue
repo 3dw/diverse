@@ -3,8 +3,8 @@
   .ui.container(v-show = "step == -1 || step == 0")
     .slide(v-show = "step == -1")
       #start
-        h3 學習風格自我測驗
-        q-btn(size="xl", @click = "step=0") 按此開始測驗
+        h4 學習風格自我測驗
+        q-btn(size="xl", @click = "step=0", color="secondary") 按此開始測驗
 
   .ui.form.slide.container(v-show="step == 0")
       .ui.segment.repeated-item(v-for="(q, idx) in qs")
