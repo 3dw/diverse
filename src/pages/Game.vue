@@ -5,13 +5,13 @@
   .heading(v-if="step > -1") 連勝: {{wins}} 連勝
   q-btn(size="xl", v-show="step == -1" @click="step = 0; reset()") 按此開始遊戲
   .row(v-if="step > -1")
-    .col
-      h4 假想情境：
+    .col.left
+      h6 假想情境：
       p {{myQ.t}}
-      h4 學習的方法：
+      h6 學習方法：
       p.light {{myQ.cs[idx]}}
-    .col
-      h4 這樣的方法，屬於什麼學習風格呢？
+    .col.right
+      h6 這樣的方法，屬於什麼學習風格呢？
       ul
         li(v-for = "(vark, index) in myQ.rs")
           q-btn(size="xl", color="primary",  @click="guess(index)" v-bind:class = "show[vark].c")
@@ -20,11 +20,10 @@
 </template>
 
 <script>
-
 export default {
   name: 'PlayGame',
   props: ['qs'],
-  data () {
+  data() {
     return {
       msg: '',
       wins: 0,
@@ -36,40 +35,38 @@ export default {
         v: { t: '視覺', c: 'orange', i: 'face' },
         a: { t: '聽覺', c: 'purple', i: 'phone' },
         r: { t: '閱讀', c: 'blue', i: 'edit' },
-        k: { t: '實作', c: 'red', i: 'pan_tool' }
-      }
-    }
+        k: { t: '實作', c: 'red', i: 'pan_tool' },
+      },
+    };
   },
   methods: {
-    reset () {
-      this.a = Math.floor(Math.random() * this.qs.length)
-      this.myQ = this.qs[this.a]
-      this.idx = Math.floor(Math.random() * 4)
+    reset() {
+      this.a = Math.floor(Math.random() * this.qs.length);
+      this.myQ = this.qs[this.a];
+      this.idx = Math.floor(Math.random() * 4);
     },
-    guess (index) {
+    guess(index) {
       if (this.idx === index) {
-        this.win()
+        this.win();
       } else {
-        this.loose()
+        this.loose();
       }
     },
-    win () {
-      this.msg = '你猜對了，真厲害'
-      this.wins++
-      this.reset()
+    win() {
+      this.msg = '你猜對了，真厲害';
+      this.wins++;
+      this.reset();
     },
-    loose () {
-      this.msg = '你猜錯了，沒關係，再接再勵'
-      this.wins = 0
-      this.reset()
-    }
-  }
-}
-
+    loose() {
+      this.msg = '你猜錯了，沒關係，再接再勵';
+      this.wins = 0;
+      this.reset();
+    },
+  },
+};
 </script>
 
 <style scoped="">
-
 p {
   font-size: 18px;
 }
@@ -78,4 +75,12 @@ p {
   background-color: gold;
 }
 
+.col.left {
+  border-right: 3px solid #ccc;
+  padding-right: 0.5em;
+}
+
+.col.right {
+  padding-left: 1em;
+}
 </style>
