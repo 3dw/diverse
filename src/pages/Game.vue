@@ -1,7 +1,7 @@
 <template lang="pug">
 .q-pa-md
-  h4(v-if="!msg") 學習風格猜猜看
-  h4(v-else) {{msg}}
+  h2.ui.header(v-if="!msg") 學習風格猜猜看
+  h2.ui.header(v-else) {{msg}}
   .heading(v-if="step > -1") 連勝: {{wins}} 連勝
   q-btn(size="xl", v-show="step == -1" @click="step = 0; reset()") 按此開始遊戲
   .row(v-if="step > -1")

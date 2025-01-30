@@ -3,8 +3,35 @@
   .ui.container(v-show = "step == -1 || step == 0")
     .slide(v-show = "step == -1")
       #start
-        h4 學習風格自我測驗
-        q-btn(size="xl", @click = "step=0", color="secondary") 按此開始測驗
+        h2.ui.header VARK 架構
+
+        p 每個人都有擅長的學習風格，這些風格可以幫助你更有效地學習。
+        p 您的優勢可能不只一種，通常是兩種以上。
+
+        p VARK 是一種學習風格分類系統，由
+          a(href="https://en.wikipedia.org/wiki/Neil_Fleming" target="_blank" rel="noopener noreferrer") Neil Fleming
+          | 於 1987 年提出。這個模型將學習者分為四種類型，根據他們對不同感官輸入的偏好來學習與理解新知識。VARK 是以下四個英文單詞的縮寫：
+
+        ul
+          li 視覺學習者 (Visual) - 擅長看圖表、做圖形的設計與資訊整理。
+          li 聽覺學習者 (Auditory) - 擅長聽講述、討論、對話。
+          li 閱讀學習者 (Reading/Writing) - 擅長閱讀、筆記、閱讀、網路。
+          li 實作學習者 (Kinesthetic) - 擅長動手拆裝各種裝置的小零件，動手做出作品。
+
+        p 本站的學習風格自我測驗，請根據你的學習習慣，選擇最符合你的選項。
+        p 測驗結果將會告訴你，你最擅長的學習風格，以及如何提升你的學習效率。
+
+        p 對於孩子，可以由家長帶領孩子一起測驗，將題目中的例子改成孩子熟悉的例子，並且由家長陪同孩子一起討論測驗結果。
+
+        p VARK 並非絕對的分類，而是提供一種理解學習偏好的框架，有助於學習者找到最適合自己的學習方法。
+
+        p 本站由
+          a(href="https://www.alearn.org.tw" target="_blank" rel="noopener noreferrer") 自主學習促進會
+          | 開發，並公開在
+          a(href="https://github.com/3dw/diverse" target="_blank" rel="noopener noreferrer") GitHub
+          | 上，歡迎聯絡我們，提供意見。
+
+        q-btn(size="xl", @click = "step=0", color="secondary") 開始測驗
 
   .ui.form.slide.container(v-show="step == 0")
       .ui.segment.repeated-item(v-for="(q, idx) in qs")
@@ -13,22 +40,26 @@
         .field
           .list(v-for="(c,index) in q.cs")
             .item
-              .ui.toggle.checkbox
-                input(type="checkbox" v-model = "q.checked[index]")
-                label {{c}}
+              q-checkbox(
+                v-model="q.checked[index]"
+                :label="c"
+                size="lg"
+              )
 
       br
 
-      q-btn(color="primary", size="xl", tabindex="0" @click="step = 1") 看結果!
+      q-btn(color="secondary", size="xl", tabindex="0" @click="step = 1") 看結果!
       .ui.attached.segment
 
   #resault.ui.segment.slide2(v-show="step == 1")
       h4.ui.header
         i.purple.puzzle.icon
         | 測驗結果：你是一名「{{getFinal()}}」優勢的學習者!!
+        q-separator
         .sub.header {{getNum()}}
       p(v-html = "getAdvice()")
-      a.ui.huge.green.button(@click="step = -1") 再來一次!
+      q-btn.print-hide(color="secondary", size="xl", tabindex="0" @click="step = -1") 再來一次!
+      q-btn.print-hide(color="primary", size="xl", tabindex="0" @click="print()") 列印結果
 </template>
 
 <script>
@@ -41,6 +72,12 @@ export default {
     };
   },
   methods: {
+    print() {
+      this.$emit('closeDrawer');
+      setTimeout(() => {
+        window.print();
+      }, 500);
+    },
     countVARK: function () {
       var ans, i, l, vark;
       ans = {};
@@ -129,8 +166,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 p,
+li,
 label {
-  font-size: 20px !important;
+  font-size: 18px !important;
   line-height: 1.618 !important;
   text-align: left;
 }
@@ -142,10 +180,6 @@ label {
 
 .hello {
   background-color: #ffc;
-}
-
-.ui.container,
-.slide {
 }
 
 input {
