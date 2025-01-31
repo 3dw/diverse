@@ -47,6 +47,8 @@
             a(href="https://github.com/3dw/diverse" target="_blank" rel="noopener noreferrer") GitHub
             | 上，歡迎聯絡我們，提供意見。
 
+        .row
+
           q-btn(size="xl", @click = "step=0", color="secondary") 開始測驗
 
   .ui.form.slide.container(v-show="step == 0")
