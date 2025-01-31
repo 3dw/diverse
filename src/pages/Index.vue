@@ -51,15 +51,34 @@
 
   .ui.form.slide.container(v-show="step == 0")
       .ui.segment.repeated-item(v-for="(q, idx) in qs")
-        h5.ui.dividing.header {{idx}}. {{q.t}} (可複選)
+        .flex.flex-row.flex-start-center
+          h2.ui.dividing.header {{idx}}. {{q.t}} (可複選)
+          q-btn(
+            round
+            flat
+            color="primary"
+            icon="volume_up"
+            @click="speakText(`${idx}. ${q.t}`)"
+            size="sm"
+            class="q-ml-sm"
+          )
         br
         .field
           .list(v-for="(c,index) in q.cs")
-            .item
+            .item.flex.flex-row.flex-start-center
               q-checkbox(
                 v-model="q.checked[index]"
                 :label="c"
                 size="lg"
+              )
+              q-btn(
+                round
+                flat
+                color="primary"
+                icon="volume_up"
+                @click="speakText(c)"
+                size="sm"
+                class="q-ml-sm"
               )
 
       br
@@ -176,6 +195,11 @@ export default {
       }
       return ans.join('<br/><br/>');
     },
+    speakText(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'zh-TW';
+      window.speechSynthesis.speak(utterance);
+    },
   },
 };
 </script>
@@ -200,5 +224,17 @@ label {
 
 input {
   margin: 0 0.5em;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-start-center {
+  align-items: center;
 }
 </style>
