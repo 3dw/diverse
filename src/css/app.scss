@@ -1,4 +1,9 @@
 // app global css in SCSS form
+.flex-start-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
 .light {
   padding: 0.3em 0.6em;
