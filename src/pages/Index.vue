@@ -21,7 +21,13 @@
               alt="視覺學習者 (Visual) - 擅長看圖表、做圖形的設計與資訊整理。"
               )
               | 視覺學習者 (Visual) - 擅長看圖表、做圖形的設計與資訊整理。
-            li 聽覺學習者 (Auditory) - 擅長聽講述、討論、對話。
+            li.flex.flex-row.flex-start-center
+              q-img(
+              style="width: 150px; height: auto; margin-right: 10px; display: inline-block;"
+              src="~/assets/聽覺.png",
+              alt="聽覺學習者 (Auditory) - 擅長聽講述、討論、對話。"
+              )
+              | 聽覺學習者 (Auditory) - 擅長聽講述、討論、對話。
             li 閱讀學習者 (Reading/Writing) - 擅長閱讀、筆記、閱讀、網路。
             li.flex.flex-row.flex-start-center
               q-img(
