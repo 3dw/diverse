@@ -2,29 +2,21 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="print-hide">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
 
         <q-toolbar-title> 學習風格自我測驗 </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
       <q-list>
         <q-item class="big" to="/">
           <q-icon name="pan_tool" />
-          學習風格測驗
+          VARK 學習風格測驗
+        </q-item>
+        <q-item class="big" to="/whole-reduct">
+          <q-icon name="psychology" />
+          整體型與分析型測驗
         </q-item>
         <q-item class="big" to="/game">
           <q-icon name="gamepad" />
@@ -37,11 +29,7 @@
           <q-icon name="school" />
           自主學習促進會
         </q-item>
-        <q-item
-          class="big"
-          href="https://www.github.com/3dw/diverse"
-          target="_blank"
-        >
+        <q-item class="big" href="https://www.github.com/3dw/diverse" target="_blank">
           <q-icon name="code" />
           本站為開源專案
         </q-item>
