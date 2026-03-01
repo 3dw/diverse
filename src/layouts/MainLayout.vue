@@ -2,13 +2,25 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="print-hide">
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
 
         <q-toolbar-title> 學習風格自我測驗 </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-1"
+    >
       <q-list>
         <q-item class="big" to="/">
           <q-icon name="pan_tool" />
@@ -29,7 +41,11 @@
           <q-icon name="school" />
           自主學習促進會
         </q-item>
-        <q-item class="big" href="https://www.github.com/3dw/diverse" target="_blank">
+        <q-item
+          class="big"
+          href="https://www.github.com/3dw/diverse"
+          target="_blank"
+        >
           <q-icon name="code" />
           本站為開源專案
         </q-item>
@@ -72,7 +88,7 @@ export default {
           rs: ['k', 'r', 'v', 'a'],
         },
         {
-          t: '一個旅行團想認識在你的區域內的公園或是野生動物保護區，你會：',
+          t: '一個旅行團想認識在你居住區域內的公園或是野生動物保護區，你會：',
           cs: [
             '帶他們到公園或是野生動物保護區並且和他們一起在裏面逛',
             '展示網路上的圖片、相片或是攝影集給他們看',
