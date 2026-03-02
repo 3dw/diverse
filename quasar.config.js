@@ -165,7 +165,7 @@ module.exports = configure(function (/* ctx */) {
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024 * 10,
         runtimeCaching: [
           {
-            urlPattern: /.*/, // 匹配所有URL
+            urlPattern: /^https:\/\/(?!www\.googletagmanager\.com|www\.google-analytics\.com)/, // 排除 Google Analytics
             handler: 'NetworkFirst', // 優先使用網路版本
             options: {
               cacheName: 'api-cache',
