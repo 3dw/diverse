@@ -57,7 +57,7 @@
 
         .row
 
-          q-btn(size="xl", @click = "step=0", color="secondary") 開始測驗
+          q-btn(size="xl", @click = "startTest", color="secondary") 開始測驗
 
   .ui.form.slide.container(v-show="step == 0")
       .ui.segment.repeated-item(v-for="(q, idx) in qs")
@@ -93,7 +93,7 @@
 
       br
 
-      q-btn(color="secondary", size="xl", tabindex="0" @click="step = 1") 看結果!
+      q-btn(color="secondary", size="xl", tabindex="0" @click="showResult") 看結果!
       .ui.attached.segment
 
   #resault.ui.segment.slide2(v-show="step == 1")
@@ -106,7 +106,7 @@
       p(v-html = "getAdvice()")
       .result-buttons.print-hide
         q-btn(color="primary", size="xl", tabindex="0" @click="print()") 列印結果
-        q-btn(color="accent", size="xl", tabindex="0" to="/whole-reduct") 做第二個測驗 →
+        q-btn(color="accent", size="xl", tabindex="0" @click="goSecondTest") 做第二個測驗 →
 </template>
 
 <script>
@@ -119,6 +119,21 @@ export default {
     };
   },
   methods: {
+    scrollTop() {
+      window.scrollTo(0, 0);
+    },
+    startTest() {
+      this.step = 0;
+      this.scrollTop();
+    },
+    showResult() {
+      this.step = 1;
+      this.scrollTop();
+    },
+    goSecondTest() {
+      this.scrollTop();
+      this.$router.push('/whole-reduct');
+    },
     print() {
       this.$emit('closeDrawer');
       setTimeout(() => {
