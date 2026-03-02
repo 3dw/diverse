@@ -203,6 +203,9 @@ export default {
           ans.push(minADV[t]);
         }
       }
+      if (ans.length === 0) {
+        ans.push(maxADV[vark[0]]);
+      }
       return ans.join('<br/><br/>');
     },
     getChartSVG: function () {
