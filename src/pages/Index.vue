@@ -103,8 +103,9 @@
         q-separator
         .sub.header {{getNum()}}
       p(v-html = "getAdvice()")
-      q-btn.print-hide(color="secondary", size="xl", tabindex="0" @click="step = -1") 再來一次!
-      q-btn.print-hide(color="primary", size="xl", tabindex="0" @click="print()") 列印結果
+      .result-buttons.print-hide
+        q-btn(color="primary", size="xl", tabindex="0" @click="print()") 列印結果
+        q-btn(color="accent", size="xl", tabindex="0" to="/whole-reduct") 做第二個測驗 →
 </template>
 
 <script>
@@ -246,5 +247,18 @@ input {
 
 .flex-start-center {
   align-items: center;
+}
+
+.result-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 599px) {
+  .result-buttons {
+    flex-direction: column;
+  }
 }
 </style>
