@@ -55,6 +55,27 @@
     <q-page-container>
       <router-view :qs="qs" @closeDrawer="closeDrawer" />
     </q-page-container>
+
+    <q-footer class="print-hide bg-grey-2 text-grey-7">
+      <div
+        style="
+          text-align: center;
+          padding: 12px 16px;
+          font-size: 13px;
+          line-height: 1.6;
+        "
+      >
+        <span>本站所有內容以</span>
+        <a
+          href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hant"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #1976d2; text-decoration: none; font-weight: bold"
+          >CC0 公共領域貢獻宣告</a
+        >
+        <span>釋出，您可以自由使用。</span>
+      </div>
+    </q-footer>
   </q-layout>
 </template>
 
