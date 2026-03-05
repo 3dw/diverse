@@ -60,6 +60,15 @@
           q-btn(size="xl", @click = "startTest", color="secondary") 開始測驗
 
   .ui.form.slide.container(v-show="step == 0")
+      .q-mb-md
+        .text-subtitle1.q-mb-xs 作答進度：{{ answeredCount }} / {{ qs.length }} 題
+        q-linear-progress(
+          :value="answeredCount / qs.length"
+          size="20px"
+          color="secondary"
+          track-color="grey-3"
+          rounded
+        )
       .ui.segment.repeated-item(v-for="(q, idx) in qs")
         .flex.flex-row.flex-start-center
           h2.ui.dividing.header {{idx}}. {{q.t}} (可複選)
@@ -106,6 +115,7 @@
       p(v-html = "getAdvice()")
       .result-buttons.print-hide
         q-btn(color="primary", size="xl", tabindex="0" @click="print()") 列印結果
+        q-btn(color="deep-orange", size="xl", tabindex="0" @click="downloadResult()") 下載結果圖片
         q-btn(color="accent", size="xl", tabindex="0" @click="goSecondTest") 做第二個測驗 →
 </template>
 
@@ -118,7 +128,24 @@ export default {
       step: -1,
     };
   },
+  computed: {
+    answeredCount() {
+      if (!this.qs) return 0;
+      return this.qs.filter(q => q.checked.some(c => c)).length;
+    },
+  },
   methods: {
+    downloadResult() {
+      import('html2canvas').then(({ default: html2canvas }) => {
+        const el = document.getElementById('resault');
+        html2canvas(el, { useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 'VARK-result.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        });
+      });
+    },
     scrollTop() {
       window.scrollTo(0, 0);
     },

@@ -98,8 +98,10 @@
         .sub.header {{getNum()}}
       div(v-html="getChartSVG()")
       p(v-html = "getAdvice()")
-      q-btn.print-hide(color="secondary", size="xl", tabindex="0" @click="step = -1") 再來一次!
-      q-btn.print-hide(color="primary", size="xl", tabindex="0" @click="print()") 列印結果
+      .result-buttons.print-hide
+        q-btn(color="secondary", size="xl", tabindex="0" @click="step = -1") 再來一次!
+        q-btn(color="primary", size="xl", tabindex="0" @click="print()") 列印結果
+        q-btn(color="deep-orange", size="xl", tabindex="0" @click="downloadResult()") 下載結果圖片
 </template>
 
 <script>
@@ -278,6 +280,17 @@ export default {
     };
   },
   methods: {
+    downloadResult() {
+      import('html2canvas').then(({ default: html2canvas }) => {
+        const el = document.getElementById('resault');
+        html2canvas(el, { useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 'whole-reduct-result.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        });
+      });
+    },
     print() {
       this.$emit('closeDrawer');
       setTimeout(() => {
@@ -429,5 +442,18 @@ input {
 
 .flex-start-center {
   align-items: center;
+}
+
+.result-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 599px) {
+  .result-buttons {
+    flex-direction: column;
+  }
 }
 </style>

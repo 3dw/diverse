@@ -8,7 +8,7 @@
     .col.left
       h6 假想情境：
       p {{myQ.t}}
-      h6 學習方法：
+      h6 做法：
       p.light {{myQ.cs[idx]}}
     .col.right
       h6 這樣的方法，屬於什麼學習風格呢？

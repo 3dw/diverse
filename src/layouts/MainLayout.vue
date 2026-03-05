@@ -12,6 +12,10 @@
         />
 
         <q-toolbar-title> 學習風格自我測驗 </q-toolbar-title>
+
+        <q-btn flat dense round icon="qr_code_2" @click="showQrCode = true">
+          <q-tooltip>QR Code</q-tooltip>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -52,6 +56,20 @@
       </q-list>
     </q-drawer>
 
+    <q-dialog v-model="showQrCode">
+      <q-card class="q-pa-md" style="text-align: center">
+        <q-card-section>
+          <div class="text-h6">掃描 QR Code 開啟本站</div>
+        </q-card-section>
+        <q-card-section>
+          <vue-qr :text="siteUrl" :size="300" :margin="10" />
+        </q-card-section>
+        <q-card-actions align="center">
+          <q-btn flat label="關閉" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <q-page-container>
       <router-view :qs="qs" @closeDrawer="closeDrawer" />
     </q-page-container>
@@ -80,11 +98,16 @@
 </template>
 
 <script>
+import VueQr from 'vue-qr';
+
 export default {
   name: 'MainLayout',
+  components: { VueQr },
   data() {
     return {
       leftDrawerOpen: false,
+      showQrCode: false,
+      siteUrl: 'https://diverse.tw',
       qs: [
         {
           t: '你拿到一款從來沒玩過的桌遊，你比較喜歡怎麼學規則？',
