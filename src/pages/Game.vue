@@ -5,12 +5,11 @@
   .heading(v-if="step > -1") 連勝: {{wins}} 連勝
   q-btn(size="xl", v-show="step == -1" @click="step = 0; reset()") 按此開始遊戲
   .row(v-if="step > -1")
-    .col.left
+    .col
       h6 假想情境：
       p {{myQ.t}}
-      h6 做法：
+      h6 有人回答：
       p.light {{myQ.cs[idx]}}
-    .col.right
       h6 這樣的方法，屬於什麼學習風格呢？
       ul
         li(v-for = "(vark, index) in myQ.rs")
