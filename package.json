@@ -15,6 +15,7 @@
   "dependencies": {
     "@quasar/extras": "^1.16.4",
     "axios": "^1.2.1",
+    "html2canvas": "^1.4.1",
     "pug": "^3.0.2",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
