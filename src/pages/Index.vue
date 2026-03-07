@@ -60,8 +60,8 @@
           q-btn(size="xl", @click = "startTest", color="secondary") 開始測驗
 
   .ui.form.slide.container(v-show="step == 0")
-      .q-mb-md
-        .text-subtitle1.q-mb-xs 作答進度：{{ answeredCount }} / {{ qs.length }} 題
+      .quiz-progress-fixed
+        .text-subtitle1.q-mb-xs 作答進度：{{ answeredCount }} / {{ qs.length }} 題（共 16 題）
         q-linear-progress(
           :value="answeredCount / qs.length"
           size="20px"
@@ -69,41 +69,42 @@
           track-color="grey-3"
           rounded
         )
-      .ui.segment.repeated-item(v-for="(q, idx) in qs")
-        .flex.flex-row.flex-start-center
-          h2.ui.dividing.header {{idx}}. {{q.t}} (可複選)
-          q-btn(
-            round
-            flat
-            color="primary"
-            icon="volume_up"
-            @click="speakText(`${idx}. ${q.t}`)"
-            size="sm"
-            class="q-ml-sm"
-          )
+      .quiz-content
+        .ui.segment.repeated-item(v-for="(q, idx) in qs")
+          .flex.flex-row.flex-start-center
+            h2.ui.dividing.header {{idx}}. {{q.t}} (可複選)
+            q-btn(
+              round
+              flat
+              color="primary"
+              icon="volume_up"
+              @click="speakText(`${idx}. ${q.t}`)"
+              size="sm"
+              class="q-ml-sm"
+            )
+          br
+          .field
+            .list(v-for="(c,index) in q.cs")
+              .item.flex.flex-row.flex-start-center
+                q-checkbox(
+                  v-model="q.checked[index]"
+                  :label="c"
+                  size="lg"
+                )
+                q-btn(
+                  round
+                  flat
+                  color="primary"
+                  icon="volume_up"
+                  @click="speakText(c)"
+                  size="sm"
+                  class="q-ml-sm"
+                )
+
         br
-        .field
-          .list(v-for="(c,index) in q.cs")
-            .item.flex.flex-row.flex-start-center
-              q-checkbox(
-                v-model="q.checked[index]"
-                :label="c"
-                size="lg"
-              )
-              q-btn(
-                round
-                flat
-                color="primary"
-                icon="volume_up"
-                @click="speakText(c)"
-                size="sm"
-                class="q-ml-sm"
-              )
 
-      br
-
-      q-btn(color="secondary", size="xl", tabindex="0" @click="showResult") 看結果!
-      .ui.attached.segment
+        q-btn(color="secondary", size="xl", tabindex="0" @click="showResult") 看結果!
+        .ui.attached.segment
 
   #resault.ui.segment.slide2(v-show="step == 1")
       h4.ui.header
@@ -289,6 +290,30 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.quiz-progress-fixed {
+  position: fixed;
+  top: 50px; /* 在 q-header 下方 */
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 12px 16px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.quiz-content {
+  padding-top: 72px; /* 為固定進度條留空，避免內容被遮住 */
+}
+
+@media print {
+  .quiz-progress-fixed {
+    position: static;
+  }
+  .quiz-content {
+    padding-top: 0;
+  }
+}
+
 p,
 li,
 label {
