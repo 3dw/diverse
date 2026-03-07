@@ -107,7 +107,7 @@ export default {
     return {
       leftDrawerOpen: false,
       showQrCode: false,
-      siteUrl: 'https://diverse.tw',
+      siteUrl: 'https://diverse.alearn.org.tw',
       qs: [
         {
           t: '你拿到一款從來沒玩過的桌遊，你比較喜歡怎麼學規則？',
