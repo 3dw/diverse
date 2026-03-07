@@ -83,7 +83,7 @@
           line-height: 1.6;
         "
       >
-        <span>本站所有內容以</span>
+        <span>本站內容以</span>
         <a
           href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hant"
           target="_blank"
@@ -91,7 +91,7 @@
           style="color: #1976d2; text-decoration: none; font-weight: bold"
           >CC0 公共領域貢獻宣告</a
         >
-        <span>釋出，您可以自由使用。</span>
+        <span>釋出，您可自由使用。</span>
       </div>
     </q-footer>
   </q-layout>
