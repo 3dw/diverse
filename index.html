@@ -4,7 +4,10 @@
     <title><%= productName %></title>
 
     <meta charset="utf-8" />
-    <meta name="description" content="<%= productDescription %>" />
+    <meta
+      name="description"
+      content="每個人都有擅長的學習風格，這些風格可以幫助你更有效地學習。您的優勢可能不只一種，通常是兩種以上。"
+    />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta
@@ -12,10 +15,10 @@
       content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>"
     />
 
-    <meta property="og:title" content="學習多樣性" />
+    <meta property="og:title" content="學習風格自我測驗" />
     <meta
       property="og:description"
-      content="每個人都有不同的學習風格，而且學習風格是動態的，隨著成長和經驗也會改變。所有測驗僅供參考，不是定論。"
+      content="每個人都有擅長的學習風格，這些風格可以幫助你更有效地學習。您的優勢可能不只一種，通常是兩種以上。"
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://diverse-8dw.pages.dev/" />
@@ -48,6 +51,12 @@
       sizes="16x16"
       href="icons/favicon-16x16.png"
     />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#027be3" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="<%= productName %>" />
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
     <!-- iPhone 14 Pro, 14 Pro Max -->
     <link
       rel="apple-touch-startup-image"
