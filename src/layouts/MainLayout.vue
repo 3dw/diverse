@@ -34,6 +34,13 @@
           <q-icon name="psychology" />
           整體型與分析型測驗
         </q-item>
+        <q-item class="big" to="/learning-state">
+          <q-icon name="self_improvement" />
+          學習狀態自我檢視
+        </q-item>
+
+        <q-separator />
+
         <q-item class="big" to="/game">
           <q-icon name="gamepad" />
           學習風格小遊戲

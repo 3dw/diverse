@@ -11,6 +11,10 @@ const routes: RouteRecordRaw[] = [
         path: 'whole-reduct',
         component: () => import('pages/Whole_Reduct.vue'),
       },
+      {
+        path: 'learning-state',
+        component: () => import('pages/LearningStatePage.vue'),
+      },
     ],
   },
 
