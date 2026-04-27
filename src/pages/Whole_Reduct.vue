@@ -38,7 +38,7 @@
             li 喜歡明確的指導和規則
 
           p 本站的整體型與分析型自我測驗，請根據你的學習習慣，選擇最符合你的選項。
-          p 測驗結果將會告訴你，你最擅長的學習思維模式，以及如何提升你的學習效率。
+          p 測驗結果將會反映出你最擅長的學習思維模式，以及如何提升你的學習效率。
 
           p 對於孩子，可以由家長帶領孩子一起測驗，將題目中的例子改成孩子熟悉的例子，並且由家長陪同孩子一起討論測驗結果。
 
@@ -283,12 +283,14 @@ export default {
     downloadResult() {
       import('html2canvas').then(({ default: html2canvas }) => {
         const el = document.getElementById('resault');
-        html2canvas(el, { useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
-          const link = document.createElement('a');
-          link.download = 'whole-reduct-result.png';
-          link.href = canvas.toDataURL('image/png');
-          link.click();
-        });
+        html2canvas(el, { useCORS: true, backgroundColor: '#ffffff' }).then(
+          (canvas) => {
+            const link = document.createElement('a');
+            link.download = 'whole-reduct-result.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+          }
+        );
       });
     },
     print() {
@@ -324,8 +326,14 @@ export default {
       types = ['w', 'r'];
       names = { w: '整體型', r: '分析型' };
       res = this.countWholeReduct();
-      ans = types.slice().sort(function (a, b) { return res[b] - res[a]; });
-      return ans.map(function (t) { return names[t] + ':' + res[t]; }).join(' ');
+      ans = types.slice().sort(function (a, b) {
+        return res[b] - res[a];
+      });
+      return ans
+        .map(function (t) {
+          return names[t] + ':' + res[t];
+        })
+        .join(' ');
     },
     getFinal: function () {
       var types, titles, ans, i$, len$, t;
@@ -359,7 +367,9 @@ export default {
         r: '你目前還不大擅長分析型學習。建議：<br/>• 嘗試按步驟學習<br/>• 注重基礎概念<br/>• 使用清單來組織學習<br/>• 練習系統性思維',
       };
       res = this.countWholeReduct();
-      types = types.slice().sort(function (a, b) { return res[b] - res[a]; });
+      types = types.slice().sort(function (a, b) {
+        return res[b] - res[a];
+      });
       for (i$ = 0, len$ = types.length; i$ < len$; ++i$) {
         t = types[i$];
         if (res[t] > 7) {
@@ -380,23 +390,77 @@ export default {
         { key: 'w', name: '整體型', color: '#00897B' },
         { key: 'r', name: '分析型', color: '#E53935' },
       ];
-      cats.sort(function (a, b) { return res[b.key] - res[a.key]; });
-      var maxScore = (this.questions && this.questions.length) ? this.questions.length : 15;
-      var W = 420, barH = 44, gap = 14, labelW = 72, padTop = 14;
+      cats.sort(function (a, b) {
+        return res[b.key] - res[a.key];
+      });
+      var maxScore =
+        this.questions && this.questions.length ? this.questions.length : 15;
+      var W = 420,
+        barH = 44,
+        gap = 14,
+        labelW = 72,
+        padTop = 14;
       var barMaxW = W - labelW - 56;
       var H = padTop + cats.length * (barH + gap) + 10;
-      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:500px;display:block;margin:12px 0 18px;">';
-      svg += '<rect width="' + W + '" height="' + H + '" rx="12" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>';
+      var svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+        W +
+        ' ' +
+        H +
+        '" style="width:100%;max-width:500px;display:block;margin:12px 0 18px;">';
+      svg +=
+        '<rect width="' +
+        W +
+        '" height="' +
+        H +
+        '" rx="12" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>';
       cats.forEach(function (cat) {
         var idx = cats.indexOf(cat);
         var score = res[cat.key];
-        var bw = score > 0 ? Math.max(Math.round((score / maxScore) * barMaxW), 4) : 4;
+        var bw =
+          score > 0 ? Math.max(Math.round((score / maxScore) * barMaxW), 4) : 4;
         var y = padTop + idx * (barH + gap);
         var cy = y + barH / 2;
-        svg += '<text x="' + (labelW - 8) + '" y="' + (cy + 5) + '" text-anchor="end" font-size="14" fill="#555">' + cat.name + '</text>';
-        svg += '<rect x="' + labelW + '" y="' + (y + 6) + '" width="' + barMaxW + '" height="' + (barH - 12) + '" rx="5" fill="#ececec"/>';
-        svg += '<rect x="' + labelW + '" y="' + (y + 6) + '" width="' + bw + '" height="' + (barH - 12) + '" rx="5" fill="' + cat.color + '"/>';
-        svg += '<text x="' + (labelW + bw + 8) + '" y="' + (cy + 5) + '" font-size="15" font-weight="bold" fill="' + cat.color + '">' + score + '</text>';
+        svg +=
+          '<text x="' +
+          (labelW - 8) +
+          '" y="' +
+          (cy + 5) +
+          '" text-anchor="end" font-size="14" fill="#555">' +
+          cat.name +
+          '</text>';
+        svg +=
+          '<rect x="' +
+          labelW +
+          '" y="' +
+          (y + 6) +
+          '" width="' +
+          barMaxW +
+          '" height="' +
+          (barH - 12) +
+          '" rx="5" fill="#ececec"/>';
+        svg +=
+          '<rect x="' +
+          labelW +
+          '" y="' +
+          (y + 6) +
+          '" width="' +
+          bw +
+          '" height="' +
+          (barH - 12) +
+          '" rx="5" fill="' +
+          cat.color +
+          '"/>';
+        svg +=
+          '<text x="' +
+          (labelW + bw + 8) +
+          '" y="' +
+          (cy + 5) +
+          '" font-size="15" font-weight="bold" fill="' +
+          cat.color +
+          '">' +
+          score +
+          '</text>';
       });
       svg += '</svg>';
       return svg;
