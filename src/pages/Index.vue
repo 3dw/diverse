@@ -9,7 +9,9 @@
         .row
 
           p 每個人都有擅長的學習風格，這些風格可以幫助你更有效地學習。
-          p 您的優勢可能不只一種，通常是兩種以上。
+
+          p
+            b 請注意：人的感官接收與認知策略是多元的，這只是認識自己的工具。真正影響學習成效的，並不是固定的風格，而是親師生是否能根據不同任務靈活選擇適切的學習策略。
 
           p VARK 是一種學習風格分類系統，由
             a(href="https://en.wikipedia.org/wiki/Neil_Fleming" target="_blank" rel="noopener noreferrer") Neil Fleming
@@ -42,8 +44,9 @@
         q-separator
 
         .row
-          p 本站的學習風格自我測驗，請根據你的學習習慣，選擇最符合你的選項。
-          p 測驗結果將會告訴你，你最擅長的學習風格，以及如何提升你的學習效率。
+          p 請根據你的學習習慣，選擇最符合你的選項(可複選)。
+
+          p 測驗結果將會提示出你最擅長的學習風格，以及如何提升你的學習效率。您的優勢可能不只一種，可能兩種以上。
 
           p 對於孩子，可以由家長帶領孩子一起測驗，將題目中的例子改成孩子熟悉的例子，並且由家長陪同孩子一起討論測驗結果。
 
@@ -132,19 +135,21 @@ export default {
   computed: {
     answeredCount() {
       if (!this.qs) return 0;
-      return this.qs.filter(q => q.checked.some(c => c)).length;
+      return this.qs.filter((q) => q.checked.some((c) => c)).length;
     },
   },
   methods: {
     downloadResult() {
       import('html2canvas').then(({ default: html2canvas }) => {
         const el = document.getElementById('resault');
-        html2canvas(el, { useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
-          const link = document.createElement('a');
-          link.download = 'VARK-result.png';
-          link.href = canvas.toDataURL('image/png');
-          link.click();
-        });
+        html2canvas(el, { useCORS: true, backgroundColor: '#ffffff' }).then(
+          (canvas) => {
+            const link = document.createElement('a');
+            link.download = 'VARK-result.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+          }
+        );
       });
     },
     scrollTop() {
@@ -195,8 +200,14 @@ export default {
       vark = ['v', 'a', 'r', 'k'];
       names = { v: '視覺', a: '聽覺', r: '閱讀', k: '實作' };
       res = this.countVARK();
-      ans = vark.slice().sort(function (a, b) { return res[b] - res[a]; });
-      return ans.map(function (t) { return names[t] + ':' + res[t]; }).join(' ');
+      ans = vark.slice().sort(function (a, b) {
+        return res[b] - res[a];
+      });
+      return ans
+        .map(function (t) {
+          return names[t] + ':' + res[t];
+        })
+        .join(' ');
     },
     getFinal: function () {
       var vark, titles, ans, i$, len$, t;
@@ -236,7 +247,9 @@ export default {
         k: '你目前還不大擅長實作學習。試著把你學到的知識，拿來創作一些作品吧！',
       };
       res = this.countVARK();
-      vark = vark.slice().sort(function (a, b) { return res[b] - res[a]; });
+      vark = vark.slice().sort(function (a, b) {
+        return res[b] - res[a];
+      });
       for (i$ = 0, len$ = vark.length; i$ < len$; ++i$) {
         t = vark[i$];
         if (res[t] > 9) {
@@ -259,23 +272,76 @@ export default {
         { key: 'r', name: '閱讀', color: '#388E3C' },
         { key: 'k', name: '實作', color: '#F57C00' },
       ];
-      cats.sort(function (a, b) { return res[b.key] - res[a.key]; });
-      var maxScore = (this.qs && this.qs.length) ? this.qs.length : 16;
-      var W = 420, barH = 36, gap = 10, labelW = 64, padTop = 14;
+      cats.sort(function (a, b) {
+        return res[b.key] - res[a.key];
+      });
+      var maxScore = this.qs && this.qs.length ? this.qs.length : 16;
+      var W = 420,
+        barH = 36,
+        gap = 10,
+        labelW = 64,
+        padTop = 14;
       var barMaxW = W - labelW - 56;
       var H = padTop + cats.length * (barH + gap) + 10;
-      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:500px;display:block;margin:12px 0 18px;">';
-      svg += '<rect width="' + W + '" height="' + H + '" rx="12" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>';
+      var svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+        W +
+        ' ' +
+        H +
+        '" style="width:100%;max-width:500px;display:block;margin:12px 0 18px;">';
+      svg +=
+        '<rect width="' +
+        W +
+        '" height="' +
+        H +
+        '" rx="12" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>';
       cats.forEach(function (cat) {
         var idx = cats.indexOf(cat);
         var score = res[cat.key];
-        var bw = score > 0 ? Math.max(Math.round((score / maxScore) * barMaxW), 4) : 4;
+        var bw =
+          score > 0 ? Math.max(Math.round((score / maxScore) * barMaxW), 4) : 4;
         var y = padTop + idx * (barH + gap);
         var cy = y + barH / 2;
-        svg += '<text x="' + (labelW - 8) + '" y="' + (cy + 5) + '" text-anchor="end" font-size="13" fill="#666">' + cat.name + '</text>';
-        svg += '<rect x="' + labelW + '" y="' + (y + 5) + '" width="' + barMaxW + '" height="' + (barH - 10) + '" rx="4" fill="#ececec"/>';
-        svg += '<rect x="' + labelW + '" y="' + (y + 5) + '" width="' + bw + '" height="' + (barH - 10) + '" rx="4" fill="' + cat.color + '"/>';
-        svg += '<text x="' + (labelW + bw + 7) + '" y="' + (cy + 5) + '" font-size="14" font-weight="bold" fill="' + cat.color + '">' + score + '</text>';
+        svg +=
+          '<text x="' +
+          (labelW - 8) +
+          '" y="' +
+          (cy + 5) +
+          '" text-anchor="end" font-size="13" fill="#666">' +
+          cat.name +
+          '</text>';
+        svg +=
+          '<rect x="' +
+          labelW +
+          '" y="' +
+          (y + 5) +
+          '" width="' +
+          barMaxW +
+          '" height="' +
+          (barH - 10) +
+          '" rx="4" fill="#ececec"/>';
+        svg +=
+          '<rect x="' +
+          labelW +
+          '" y="' +
+          (y + 5) +
+          '" width="' +
+          bw +
+          '" height="' +
+          (barH - 10) +
+          '" rx="4" fill="' +
+          cat.color +
+          '"/>';
+        svg +=
+          '<text x="' +
+          (labelW + bw + 7) +
+          '" y="' +
+          (cy + 5) +
+          '" font-size="14" font-weight="bold" fill="' +
+          cat.color +
+          '">' +
+          score +
+          '</text>';
       });
       svg += '</svg>';
       return svg;
