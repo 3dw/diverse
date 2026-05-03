@@ -1,5 +1,16 @@
 <template lang="pug">
 .q-pa-md
+  q-dialog(v-model="showWelcomeDialog", @hide="saveWelcomePreference")
+    q-card.welcome-dialog
+      q-card-section
+        h2.ui.header 歡迎使用多元學習風格!
+      q-card-section.welcome-dialog__body
+        p 近幾年普遍支持的想法是「神經多樣性」與「多感官學習」。這些測驗並非提供ㄧ種診斷與解藥，而是提醒大家可以試著用不同的感官做爲學習路徑，並善用各種工具，包括網路、AI等，以打造適合個人的路徑。不需要因一時受挫、不佳的學習經驗，放棄嘗試與學習。
+        p 祝福您更瞭解自己、找到合適自己的學習樣態~
+      q-card-section.welcome-dialog__actions
+        q-checkbox(v-model="hideWelcomeAgain", label="不要再顯示")
+        q-btn(color="secondary", label="開始使用", unelevated, v-close-popup)
+
   .ui.container(v-show = "step == -1 || step == 0")
     .slide(v-show = "step == -1")
       #start
@@ -132,7 +143,14 @@ export default {
   data() {
     return {
       step: -1,
+      showWelcomeDialog: false,
+      hideWelcomeAgain: false,
     };
+  },
+  mounted() {
+    if (typeof window === 'undefined') return;
+    this.showWelcomeDialog =
+      window.localStorage.getItem('diverse-hide-welcome') !== 'true';
   },
   computed: {
     answeredCount() {
@@ -141,6 +159,12 @@ export default {
     },
   },
   methods: {
+    saveWelcomePreference() {
+      if (typeof window === 'undefined') return;
+      if (this.hideWelcomeAgain) {
+        window.localStorage.setItem('diverse-hide-welcome', 'true');
+      }
+    },
     downloadResult() {
       import('html2canvas').then(({ default: html2canvas }) => {
         const el = document.getElementById('resault');
@@ -358,6 +382,23 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.welcome-dialog {
+  max-width: 640px;
+  width: min(640px, calc(100vw - 32px));
+}
+
+.welcome-dialog__body {
+  padding-top: 0;
+}
+
+.welcome-dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .quiz-progress-fixed {
   position: fixed;
   top: 50px; /* 在 q-header 下方 */
