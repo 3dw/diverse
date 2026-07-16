@@ -2,8 +2,16 @@
 .q-pa-md.autonomy-page
   //- Intro screen
   .slide.print-hide(v-show="step === 'intro'")
-    .row.q-mb-md
-      h2.q-my-none {{ intro.title }}
+    .row.intro-header.q-mb-md.items-center.q-col-gutter-sm
+      .col-auto
+        img.intro-illust(
+          :src="heroSvg"
+          alt="意識自主：從螢幕通知中回收注意力"
+          width="160"
+          height="80"
+        )
+      .col
+        h2.q-my-none {{ intro.title }}
     .row
       p(v-for="(p, i) in intro.paragraphs" :key="i") {{ p }}
     .row.q-mt-sm
@@ -40,7 +48,7 @@
             v-for="opt in options"
             :key="opt.key"
             :outline="answers[currentIndex] !== opt.key"
-            :color="answers[currentIndex] === opt.key ? 'indigo' : 'grey'"
+            :color="answers[currentIndex] === opt.key ? 'indigo' : 'blue-grey-7'"
             :label="opt.key + '　' + opt.label"
             unelevated
             align="left"
@@ -69,7 +77,7 @@
       q-btn(
         v-if="currentIndex === questions.length - 1"
         :disable="!allAnswered"
-        color="deep-orange"
+        :color="allAnswered ? 'deep-orange' : 'grey-6'"
         icon-right="check"
         label="查看結果"
         size="lg"
@@ -85,9 +93,17 @@
   #autonomy-result.slide.result-slide(v-show="step === 'result'")
     .report-sheet
       .report-header
-        h2.report-title.q-my-none 意識自主大作戰｜自我測驗報告
-        .report-meta.text-caption.text-grey-7
-          | 作答日期：{{ reportDate }}　｜　總分 {{ totalScore }} / {{ totalMax }} 分
+        .row.items-center.q-gutter-sm.no-wrap
+          img.report-illust(
+            :src="heroSvg"
+            alt=""
+            width="88"
+            height="44"
+          )
+          .col
+            h2.report-title.q-my-none 意識自主大作戰｜自我測驗報告
+            .report-meta.text-caption.text-grey-7
+              | 作答日期：{{ reportDate }}　｜　總分 {{ totalScore }} / {{ totalMax }} 分
 
       .report-summary.q-mb-md
         .text-overline 綜合狀態
@@ -142,6 +158,7 @@ export default {
     return {
       step: 'intro', // 'intro' | 'quiz' | 'result'
       intro: autonomyIntroduction,
+      heroSvg: '/consciousness-autonomy.svg',
       questions: consciousnessAutonomyQuestions,
       options: autonomyOptions,
       answers: [], // 'O' | 'A' | 'X'
@@ -243,6 +260,22 @@ p {
   margin: 0 auto;
 }
 
+.intro-illust {
+  display: block;
+  width: 160px;
+  height: auto;
+  max-width: 42vw;
+  border-radius: 10px;
+}
+
+.report-illust {
+  display: block;
+  width: 88px;
+  height: auto;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
 .answer-btn {
   min-height: 48px;
   justify-content: flex-start;
@@ -318,6 +351,15 @@ p {
 }
 
 @media (max-width: 599px) {
+  .intro-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .intro-illust {
+    max-width: 100%;
+  }
+
   .result-buttons {
     flex-direction: column;
   }
@@ -346,6 +388,12 @@ p {
 
   .report-title {
     font-size: 18pt;
+  }
+
+  .report-illust {
+    width: 64px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   .category-grid {
