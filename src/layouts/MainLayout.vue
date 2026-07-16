@@ -38,6 +38,10 @@
           <q-icon name="self_improvement" />
           學習狀態自我檢視
         </q-item>
+        <q-item class="big" to="/consciousness-autonomy">
+          <q-icon name="visibility_off" />
+          意識自主大作戰
+        </q-item>
 
         <q-separator />
 

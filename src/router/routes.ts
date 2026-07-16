@@ -15,6 +15,10 @@ const routes: RouteRecordRaw[] = [
         path: 'learning-state',
         component: () => import('pages/LearningStatePage.vue'),
       },
+      {
+        path: 'consciousness-autonomy',
+        component: () => import('pages/ConsciousnessAutonomyPage.vue'),
+      },
     ],
   },
 
